@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<head>
+  <style>
+    html {
+      height: 100%;
+      font-family: "IBM Plex Mono";
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+    }
+  </style>
+  <script src="fib.js"></script>
+  <script>
+    const js_wrapped_fib = Module.cwrap("fib", "number", ["number"]);
+
+    function fib() {
+      const arg = parseInt(document.getElementById("fib-input").value);
+      const result = js_wrapped_fib(arg);
+      console.log("The result of fib(" + arg + ") is:", result);
+      document.getElementById("fib-result").innerText = "Result: " + result;
+    }
+
+    function setBackgroundColor(color_idx) {
+      let color = "red";
+      if (color_idx == 1) color = "blue";
+      else if (color_idx == 2) color = "green";
+
+      document.body.style.backgroundColor = color; // set the new background color
+    }
+  </script>
+
+</head>
+
+<body height="100%" width="100%">
+  <h1>WASM TIME!!!</h1>
+
+  <div>
+    <input type="text" placeholder="Place a number" id="fib-input" />
+    <button onclick="fib()">Fibonacci!</button>
+    <p id="fib-result">Result: ?</p>
+  </div>
+
+</body>
+
+</html>
